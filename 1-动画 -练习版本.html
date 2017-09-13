@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="Generator" content="EditPlus®">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+  <title>Document</title>
+ </head>
+ <body>
+<style>
+
+div {
+	width: 100px;
+	height: 100px;
+	background-color: red;
+}
+
+.d0 {
+	/* 距离顶部的距离 */
+	margin-top: 10px;
+}
+
+
+</style>
+
+  <div class="d0"> </div>
+
+
+<!-- 1. 引入工具 -->
+<script src="1.js"></script>
+
+<!-- 2. 添加动画 -->
+
+<script>
+	//  $(".d0")代表使用了样式d0的元素
+	//  .animate 使用动画效果 animate代表功能的名字 不能写错
+	//  {"margin-top":"300px"}代表动画的最终位置
+	//  3000代表3秒
+	$(".d0").animate( {"margin-top":"300px"},3000, function(){
+
+
+		$(".d0").animate({"margin-top":"10px"},3000);
+	})
+</script>
+
+ </body>
+</html>

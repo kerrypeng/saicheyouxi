@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="Generator" content="EditPlus®">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+  <title>Document</title>
+ </head>
+ <body>
+<style>
+
+div {
+	width: 100px;
+	height: 100px;
+	background-color: red;
+}
+
+.d0 {
+	/* 距离顶部的距离 */
+	margin-top: 10px;
+}
+
+
+</style>
+
+  <div class="d0"> 
+  <img src="rabbit.jpg"/>
+  </div>
+
+
+
+<!-- 1. 引入工具 -->
+<script src="1.js"></script>
+
+<!-- 2. 添加动画 -->
+
+<script>
+
+	//大括号 用于包起代码 称为 封装
+	// a 代表功能的名字 可以修改
+	//()   格式
+	//  {}  代表将代码包起来
+	//  $(".d0")代表使用了样式d0的元素
+	//  .animate 使用动画效果 animate代表功能的名字 不能写错
+	//  {"margin-top":"300px"}代表动画的最终位置
+	//  3000代表3秒
+
+	function a(){
+
+	$(".d0").animate( {"margin-top":"300px"},3000, function(){
+
+
+		$(".d0").animate({"margin-top":"10px"},3000,function(){
+
+			//动画完成之后 重复执行功能a
+
+			a();
+	});
+
+	})
+
+	}
+
+	// 执行功能a
+	// 格式 功能名()
+
+	a();
+</script>
+
+ </body>
+</html>

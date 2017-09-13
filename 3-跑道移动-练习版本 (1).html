@@ -1,0 +1,268 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="Generator" content="EditPlus®">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+  <title>Document</title>
+ </head>
+ <body>
+	<style>
+
+	* {
+		/* 外边距清零 */
+		margin: 0;
+		/* 内边距清零 */
+		padding: 0;
+	}
+
+	/* 100%  是代表与父类元素的数值一致 
+			height: 100%;  代表它的高度与父元素的高度一致
+
+		因为 html 是根元素，可以认为它的父元素是浏览器
+			所以，你设置它的高度为 100%，就相当于是 浏览器 的高度，
+			相当于铺满了
+	*/
+	html {
+		height: 100%;
+	}
+
+	body {
+		height: 100%;
+	}
+
+
+	/* 定义样式 road */
+	.road {
+		/* 为了让车子以跑道为参考点，我们设置定位方式
+				定位默认是 relative  相对的
+		*/
+
+		overflow:hidden;
+		position: relative;
+
+	
+		/* 背景颜色 */
+		background-color: #808080;
+
+		/* 居中 */
+		margin: 0 auto 0 auto;
+
+		/* 宽度：
+			注意：50% 都是相对于父元素来说的
+			 因为 body 默认的宽度就是浏览器的宽度，所以，这里50%就是浏览器的一半
+		*/
+		width: 50%;
+
+		/* 高度 */
+		height: 100%;
+
+		/* 边框: left 代表左， right 代表右 */
+		border-left: 2px solid black;
+		border-right: 2px solid black;
+	}
+
+	.runway {
+
+		width: 20%;
+		height: 200%;
+		/* 先让上一半移动都上面*/
+		margin-top:-100%;
+
+		/* dashed: 虚线 
+			具体的意义： 如果不知道的话，可以看自己的笔记、博客
+		*/
+		border-right: 4px dashed white;
+
+		/* 靠左浮动，这样div 就不会独占一行 */
+		float: left;
+
+		/* 盒子：
+				宽度、高度
+				内边距
+				边框
+				外边距
+
+			通过 设置 box-sizing 的值为 border-box, 可以让 盒子的宽度、高度 包括了 内边距 和 边框
+		*/
+		box-sizing: border-box;
+	}
+
+	.mycar {
+		width: 12%;
+
+		/* 绝对定位 */
+		position: absolute;
+
+		/*  */
+		left: 44%;
+		bottom:-10%;
+		
+	}
+
+	.pkcar{
+			width:20%;
+			height:20%;
+			background-color:yellow;
+			position:absolute;
+			left:0%;
+			top:0%;
+		}
+
+
+	</style>
+  
+	<!-- 跑道是1个盒子 -->
+	<div class="road">
+		<!-- runway 跑道-->
+		<div class="runway"> </div>
+		<div class="runway"> </div>
+		<div class="runway"> </div>
+		<div class="runway"> </div>
+
+		<!-- 自己的车： 加上保时捷 -->
+		<img src="bsj.png" class="mycar"/>
+		<!-- <div class="pkcar">
+		</div>
+		 -->
+
+	</div>
+
+
+
+<!-- 
+矩形选择
+	1. 关闭自动换行功能
+	2. Alt + 鼠标框选
+
+复制：Ctrl + C
+剪切：Ctrl + X
+粘贴：Ctrl + V
+
+
+通用： Word
+
+-->
+
+
+
+<!-- 引入工具 -->
+<script src="1.js"></script>
+
+<script>
+
+//用程序创建pkcar
+// var 定义一个空间
+//pk是空间的名字
+//$()是工具提供的功能
+//"<div class='pk'></div>"代表创建一个div盒子 样式是pk
+
+
+
+// 将敌人添加到道路中
+//append 代表添加的意思
+//$(".road").append( pkcar );
+//parseInt 用于舍弃小数部分
+// x 为0-4之间的整数
+
+// 定义功能 create
+// 创建一个敌人 并且让它往下落
+
+function create()
+
+			{
+			var pkcar = $("<div class='pkcar'></div>")
+			var x =	parseInt(5 * Math.random());
+			x = x * 20;
+
+			pkcar.css({
+						"left":x + "%"
+			});
+			//将敌人添加到道路中
+			$(".road").append(pkcar);
+
+			pkcar.animate({"top":"100%"},3000,function(){
+				
+				pkcar.remove();
+				}
+				);
+
+
+			}
+
+	setInterval(create,1000)
+
+
+
+
+var a = 44;
+
+document.onkeydown = function(xiaohua) {
+
+	// == 代表 判断中的 相等
+	//   xiaohua.keyCode  代表系统提供的 按键编码 
+	//   39  代表   向右方向键
+	if (xiaohua.keyCode == 39)
+	{
+		a = a + 20;
+	}
+	if (xiaohua.keyCode == 37)
+	{
+		a = a - 20;
+	}
+
+	// 如果 a 的值大于84,
+	if (a > 84)
+	{
+		// 那么就将a的值改成 84
+		a = 84;
+	}
+
+	if(a < 4)
+	{
+		a = 4;
+	}
+
+
+	// 更新车的位置
+	$(".mycar").css({
+		left: a + "%"
+	});
+}
+
+//这里实现跑道的动画效果
+//定义功能move 让跑道重复移动
+// 执行功能
+move();
+
+function move(){
+
+	$(".runway").animate(
+		{"margin-top":"0"},
+		//移动的目标位置  逗号是用于分隔
+		5000,
+		"linear",
+		function(){
+			$(".runway").css({"margin-top":"-100%"});
+
+			move();
+
+		}
+
+	)
+}
+
+
+
+
+
+
+
+</script>
+
+
+
+ </body>
+</html>
